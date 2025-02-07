@@ -31,7 +31,6 @@ public class MainWindow extends JFrame implements ActionListener {
         this.setSize(600, 720);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        this.setVisible(true);
 
         // Carica tabella
         this.rubrica = rubrica;
@@ -63,6 +62,7 @@ public class MainWindow extends JFrame implements ActionListener {
         buttonPane.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         this.add(bottomPane, BorderLayout.SOUTH);
+        this.setVisible(true);
     }
 
     @Override

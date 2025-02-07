@@ -88,6 +88,8 @@ public class EditPersonaWindow extends JFrame implements ActionListener {
                 clean();
             }
         });
+
+        this.setVisible(true);
     }
 
     public static EditPersonaWindow getInstance() {
