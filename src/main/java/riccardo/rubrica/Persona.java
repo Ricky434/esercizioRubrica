@@ -11,12 +11,16 @@ public class Persona {
     private String telefono;
     private int eta;
 
-    public Persona(String nome, String cognome, String indirizzo, String telefono, int eta) {
+    private int id;
+
+    public Persona(int id, String nome, String cognome, String indirizzo, String telefono, int eta) {
         this.nome = nome;
         this.cognome = cognome;
         this.indirizzo = indirizzo;
         this.telefono = telefono;
         this.eta = eta;
+
+        this.id = id;
     }
 
     public String getNome() { return nome; }
@@ -33,4 +37,11 @@ public class Persona {
 
     public int getEta() { return eta; }
     public void setEta(int eta) { this.eta = eta; }
+
+    public int getId() { return id; }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof Persona) && this.id == ((Persona)obj).id;
+    }
 }

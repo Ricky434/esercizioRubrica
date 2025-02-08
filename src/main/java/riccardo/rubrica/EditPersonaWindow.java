@@ -24,7 +24,7 @@ public class EditPersonaWindow extends JFrame implements ActionListener {
     private static EditPersonaWindow instance;
 
     private Rubrica rubrica;
-    private int id; // Id di Persona da modificare, -1 se nuova persona
+    private Persona personaEditing; // Persona che si sta editando, null se nuova persona
 
     private JButton salvaBtn;
     private JButton annullaBtn;
@@ -84,7 +84,7 @@ public class EditPersonaWindow extends JFrame implements ActionListener {
         this.add(bottomPane, BorderLayout.SOUTH);
 
         this.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e)  {
+            public void windowClosing(WindowEvent e) {
                 clean();
             }
         });
@@ -99,22 +99,21 @@ public class EditPersonaWindow extends JFrame implements ActionListener {
         return instance;
     }
 
-    public void loadPersona(Rubrica rubrica, int id) throws IndexOutOfBoundsException {
+    public void loadPersona(Rubrica rubrica, Persona persona) throws IndexOutOfBoundsException {
         this.setSize(400, 300);
         this.setVisible(true);
 
         this.rubrica = rubrica;
-        this.id = id;
 
-        if (id == -1)
+        if (persona == null)
             return;
+        this.personaEditing = persona;
 
-        Persona contatto = rubrica.getContatto(id);
-        nomeInput.setText(contatto.getNome());
-        cognomeInput.setText(contatto.getCognome());
-        indirizzoInput.setText(contatto.getIndirizzo());
-        telefonoInput.setText(contatto.getTelefono());
-        etaInput.setText(String.valueOf(contatto.getEta()));
+        nomeInput.setText(persona.getNome());
+        cognomeInput.setText(persona.getCognome());
+        indirizzoInput.setText(persona.getIndirizzo());
+        telefonoInput.setText(persona.getTelefono());
+        etaInput.setText(String.valueOf(persona.getEta()));
     }
 
     @Override
@@ -126,7 +125,8 @@ public class EditPersonaWindow extends JFrame implements ActionListener {
             String telefono = telefonoInput.getText();
             String etaStr = etaInput.getText();
 
-            if (nome.equals("") || cognome.equals("") || indirizzo.equals("") || telefono.equals("") || etaStr.equals("")) {
+            if (nome.equals("") || cognome.equals("") || indirizzo.equals("") || telefono.equals("")
+                    || etaStr.equals("")) {
                 JOptionPane.showMessageDialog(this, "Tutti i campi devono essere compilati");
                 return;
             }
@@ -139,12 +139,10 @@ public class EditPersonaWindow extends JFrame implements ActionListener {
                 return;
             }
 
-            Persona persona = new Persona(nome, cognome, indirizzo, telefono, eta);
-
-            if (this.id == -1) {
-                rubrica.addContatto(persona);
+            if (this.personaEditing == null) {
+                rubrica.addContatto(nome, cognome, indirizzo, telefono, eta);
             } else {
-                rubrica.modifyContatto(persona, id);
+                rubrica.modifyContatto(personaEditing.getId(), nome, cognome, indirizzo, telefono, eta);
             }
             this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         } else if (ev.getSource() == annullaBtn) {
@@ -154,7 +152,7 @@ public class EditPersonaWindow extends JFrame implements ActionListener {
 
     private void clean() {
         rubrica = null;
-        id = -1;
+        personaEditing = null;
         nomeInput.setText("");
         cognomeInput.setText("");
         indirizzoInput.setText("");

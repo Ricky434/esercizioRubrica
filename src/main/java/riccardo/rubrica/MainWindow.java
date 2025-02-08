@@ -69,21 +69,21 @@ public class MainWindow extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == nuovoBtn) {
             EditPersonaWindow editWindow = EditPersonaWindow.getInstance();
-            editWindow.loadPersona(rubrica, -1);
+            editWindow.loadPersona(rubrica, null);
         } else if (e.getSource() == modificaBtn) {
             int row = contattiTable.getSelectedRow();
 
-            if (row == -1){
+            if (row == -1) {
                 JOptionPane.showMessageDialog(this, "Per modificare e' necessario prima selezionare una persona");
                 return;
             }
 
             EditPersonaWindow editWindow = EditPersonaWindow.getInstance();
-            editWindow.loadPersona(rubrica, row);
+            editWindow.loadPersona(rubrica, rubrica.getContatto(row));
         } else if (e.getSource() == eliminaBtn) {
             int row = contattiTable.getSelectedRow();
 
-            if (row == -1){
+            if (row == -1) {
                 JOptionPane.showMessageDialog(this, "Per eliminare e' necessario prima selezionare una persona");
                 return;
             }
