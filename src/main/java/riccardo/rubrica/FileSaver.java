@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -23,8 +22,12 @@ public class FileSaver {
     public ArrayList<Persona> personeFromFiles() {
         ArrayList<Persona> persone = new ArrayList<>();
 
+        if (!folder.isDirectory()) {
+            System.err.println("'informazioni' is not a folder.");
+            System.exit(1);
+        }
+
         // Scorri files in folder "informazioni"
-        // TODO: check if folder var is folder?
         File[] fileList = folder.listFiles();
         for (int i = 0; i < fileList.length; i++) {
             File file = fileList[i];
@@ -39,7 +42,7 @@ public class FileSaver {
             try {
                 fileReader = new Scanner(file);
             } catch (FileNotFoundException e) {
-                System.out.println("Save file does not exist");
+                System.err.println("Save file does not exist");
                 continue;
             }
 
@@ -56,7 +59,7 @@ public class FileSaver {
                             Integer.valueOf(fields[4]));
                     persone.add(persona);
                 } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                    System.out.println("Save file malformed");
+                    System.err.println("Save file malformed");
                     continue;
                 }
             }
@@ -78,7 +81,7 @@ public class FileSaver {
             fileWriter.write(line);
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Can't open save file");
+            System.err.println("Can't open save file");
             System.exit(1);
         }
 
