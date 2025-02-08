@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JToolBar;
 
 /**
  * MainWindow
@@ -42,7 +43,7 @@ public class MainWindow extends JFrame implements ActionListener {
         this.add(scrollPane, BorderLayout.CENTER);
 
         // Bottoni
-        JPanel buttonPane = new JPanel();
+        JToolBar buttonPane = new JToolBar();
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
         buttonPane.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
@@ -56,12 +57,8 @@ public class MainWindow extends JFrame implements ActionListener {
         buttonPane.add(modificaBtn);
         buttonPane.add(eliminaBtn);
 
-        // Inserisci bottoni in altro panel per centrarli
-        JPanel bottomPane = new JPanel();
-        bottomPane.add(buttonPane);
-        buttonPane.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        this.add(bottomPane, BorderLayout.SOUTH);
+        this.add(buttonPane, BorderLayout.NORTH);
         this.setVisible(true);
     }
 

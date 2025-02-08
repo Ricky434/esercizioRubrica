@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 
 /**
  * EditPersonaWindow
@@ -65,7 +66,7 @@ public class EditPersonaWindow extends JFrame implements ActionListener {
         this.add(fieldsPane, BorderLayout.CENTER);
 
         // Bottoni
-        JPanel buttonPane = new JPanel();
+        JToolBar buttonPane = new JToolBar();
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
         buttonPane.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
@@ -76,12 +77,7 @@ public class EditPersonaWindow extends JFrame implements ActionListener {
         buttonPane.add(salvaBtn);
         buttonPane.add(annullaBtn);
 
-        // Inserisci bottoni in altro panel per centrarli
-        JPanel bottomPane = new JPanel();
-        bottomPane.add(buttonPane);
-        buttonPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        this.add(bottomPane, BorderLayout.SOUTH);
+        this.add(buttonPane, BorderLayout.NORTH);
 
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
